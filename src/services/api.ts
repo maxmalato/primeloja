@@ -1,7 +1,13 @@
-import axios from 'axios';
+import { Product } from "../types/Product";
 
-const api = axios.create({
-    baseURL: 'https://fakestoreapi.com/products'
-})
-
-export default api;
+export const fetchProducts = async ():Promise<Product[]> => {
+    try {
+        const response = await fetch('https://fakestoreapi.com/products')
+        if(!response.ok) throw new Error ('Erro ao buscar os dados.')
+        
+        return await response.json()
+    } catch (error) {
+        console.error(error)
+        return []
+    }
+}
